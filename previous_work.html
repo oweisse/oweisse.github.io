@@ -68,7 +68,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1> A New Framework for Constraint-Based Probabilistic Template Side Channel Attacks</h1>
+                      <h1>Previous Work</h1>
+                      <p>
+                      <a href="index.html">
+                          Home
+                      </a>
+                    </p>
+                        <h2> A New Framework for Constraint-Based Probabilistic Template Side Channel Attacks</h2>
 
 												<h3> Published in CHES 2014, The major part of the Masters' Thesis. <a href="CHES2014_oww.pdf">Link</a></h3> <p>
 												<br/>The implementation was submitted to the <a href="http://www.dpacontest.org/v4">DPA v4 contest</a>
@@ -80,13 +86,13 @@
 											</p>
                         <p><b>Abstract:</b> The use of constraint solvers, such as SAT- or PseudoBoolean-solvers, allows the extraction of the secret key from one or two side-channel traces. However, to use such a solver the cipher must be represented at bit-level. For byte-oriented ciphers this produces very large and unwieldy instances, leading to unpredictable, and often very long, run times. In this paper we describe a specialized byte-oriented constraint solver for side channel cryptanalysis. The user only needs to supply code snippets for the native operations of the cipher, arranged in a flow graph that models the dependence between the side channel leaks. Our framework uses a soft decision mechanism which overcomes realistic measurement noise and decoder classification errors, through a novel method for reconciling multiple probability distributions. On the DPA v4 contest dataset our framework is able to extract the correct key from one or two power traces in under 9 seconds with a success rate of over 79%.'
 </p>
-												<h1> Practical Template-Algebraic Side Channel Attacks with Extremely Low Data Complexity </h1>
+												<h2> Practical Template-Algebraic Side Channel Attacks with Extremely Low Data Complexity </h2>
                         <h3> Published in HASP 2013 <a href="OrenWeisseWool-TemplateAlgebraic-HASP2013.pdf"> Link </a></h3>
 
 												<p> <b>Abstract:</b> Template-based Tolerant Algebraic Side Channel Attacks (Template-TASCA) were suggested in [20] as a way of reducing the high data complexity of template attacks by coupling them with algebraic side-channel attacks. In contrast to the maximum-likelihood method used in a standard template attack, the template-algebraic attack method uses a constraint solver to find the optimal state correlated to the measured side-channel leakage. In this work we present the first application of the template-algebraic key recovery attack to a publicly available data set (IAIK WS2). We show how our attack can successfully recover the encryption key even when the attacker has extremely limited access to the device under test \xe2\x80\x93 only 200 traces in the offline phase and as little as a single trace in the online phase.'
 												</p>
 
-												<h1>DPA v4 Contest Submission</h1>
+												<h2>DPA v4 Contest Submission</h2>
 												<p>
 												<a href="DPA_v4_source_v003.zip">Implementation source code</a>. Includes the constraint solver described in CHES 2014, and decoders that were  described in the HASP 2013 work </p>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
