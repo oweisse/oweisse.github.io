@@ -77,7 +77,13 @@
                           Home
                       </a>
                     </p>
-					
+		
+<h2> Regaining Lost Cycles with HotCalls: A New Fast Interface for SGX Secure Enclaves</h2>
+
+												<h3> Will appear in <a href="http://isca17.ece.utoronto.ca/doku.php"> ISCA 2017</a></h3> <p>
+												
+<p><b>Abstract:</b> Intel's SGX secure execution technology allows the running of computations on secret data using untrusted cloud servers. While recent work showed how to port applications and large scale computations to run under SGX, the performance implications of using the technology remains an open question. We present the first comprehensive quantitative study to evaluate the performance of SGX. We show that straightforward use of SGX library primitives for calling functions add between 8,200 - 17,000 cycles overhead, compared to 150 cycles of a typical system call. We quantify the performance impact of these library calls and show that in applications with high system calls frequency, such as <i>memcached</i>, <i>openVPN</i>, and <i>lighttpd</i>, which all have high bandwidth network requirements, the performance degradation may be as high as 79%. We  investigate the sources of this performance degradation by leveraging a new set of micro-benchmarks for SGX-specific operations such as entry-calls and out-calls, and encrypted memory I/O accesses. We leverage the insights we gain from these analyses to design a new SGX interface framework, <i>HotCalls</i>: <i>HotCalls</i> provide a 13-27x speedup over the default interface. It can easily be integrated into existing code, making it a practical solution. Compared to a baseline SGX  implementation of <i>memcached</i>, <i>openVPN</i>,  and <i>lighttpd</i>  - we  show that using the new interface  boosts the throughput by 2.6-3.7x, and reduce application response time by 62-74%. </p>
+		
 		<h2> WALNUT: Waging doubt on integrity of MEMS AcceLerometers by iNjecting acoUsTics</h2>
 
 												<h3> Will appear in <a href="http://www.ieee-security.org/TC/EuroSP2017/"> IEEE European Symposium on Security and Privacy, 2017</a></h3> <p>
