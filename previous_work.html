@@ -83,6 +83,21 @@
                       </a>
                     </p>
 
+<h2>Snap & Replay: A new way to analyze uarch-scale performance bottlenecks for ML accelerators</h2>
+<h3>Published at SoCC 2025. <a href="snr_final.pdf"> The paper.</a>
+       <a href="#bibtex" class="btn btn-default fs-btn" data-toggle="collapse" role="button">
+            Cite <i class="fa fa-quote-right" aria-hidden="true"></i></a>
+
+            </h3>
+    <div id="bibtex" class="container collapse">
+<pre style="white-space: pre">
+coming soon 
+</pre>
+    </div> 
+
+<p><b>Abstract:</b> As models become larger, ML accelerators are a scarce resource whose performance must be continually optimized to improve efficiency. Existing performance analysis tools are coarse-grained, fail to capture model performance at the machine-code level, and often do not provide specific recommendations for optimizations. In addition, existing methodologies are hard to apply in Google’s production environment, as they require hardware changes or recompilation. We present SnR, a fine-grained methodology for analyzing ML models at the machine-code level that provides actionable optimization suggestions. It requires no hardware changes and no recompilation.</p>
+
+<p>Our core insight is to use a hardware-level simulator, an artifact of the hardware design process that we can repurpose for performance analysis. Traditionally, these simulators are confidential tools used to improve hardware designs given representative software workloads. However, as a hyperscaler practicing hardware/software co-design, we are uniquely positioned to use them in the opposite direction: to optimize software given fixed hardware architectures. SnR captures traces from production deployments running on accelerators and replays them in a modified microarchitecture simulator to gain low-level insights into the model’s performance. We implement SnR for our in-house accelerator (TPU) and used it to analyze the performance of several of our production LLMs, revealing several previously unknown microarchitecture inefficiencies. Leveraging these insights, we optimize a common communication collective by up to 15% and reduce token generation latency by up to 4.1%.</p>
 
 <h2>ghOSt: Fast & Flexible User-Space Delegation of Linux Scheduling</h2>
 <h3>Published at SOSP 2021. <a href="sosp21-ghost.pdf"> The paper.</a>
