@@ -1,140 +1,1217 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofir Weisse | Systems Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #00ff9d;
+            --accent-dim: #00cc7d;
+            --accent-glow: rgba(0, 255, 157, 0.15);
+            --border: #27272a;
+            --code-bg: #0f0f14;
+        }
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        [data-theme="light"] {
+            --bg-primary: #fafafa;
+            --bg-secondary: #f0f0f0;
+            --bg-card: #ffffff;
+            --text-primary: #18181b;
+            --text-secondary: #52525b;
+            --text-muted: #a1a1aa;
+            --accent: #059669;
+            --accent-dim: #047857;
+            --accent-glow: rgba(5, 150, 105, 0.15);
+            --border: #e4e4e7;
+            --code-bg: #f4f4f5;
+        }
 
-    <title>Ofir Weisse</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        .mono {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
 
+        /* Cursor blink animation */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .logo::before {
+            content: '~/';
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::before {
+            content: './';
+            color: var(--text-muted);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.4rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .theme-toggle-icon {
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover .theme-toggle-icon {
+            transform: rotate(20deg);
+        }
+
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .hero-prompt {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent);
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-tagline code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--accent);
+            font-size: 0.9em;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.1em;
+            background: var(--accent);
+            margin-left: 4px;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dim);
+            animation: glow 2s infinite;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        /* Terminal Card */
+        .terminal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .terminal-header {
+            background: var(--bg-secondary);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+        }
+
+        .terminal-body {
+            padding: 1.25rem;
+        }
+
+        /* Experience Timeline */
+        .experience-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .experience-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .experience-item:hover::before {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .exp-company {
+            color: var(--accent);
+        }
+
+        .exp-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .exp-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Publications */
+        .pub-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .pub-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .pub-card:hover {
+            border-color: var(--accent);
+        }
+
+        .pub-venue {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .pub-title a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .pub-title a:hover {
+            text-decoration: underline;
+        }
+
+        .pub-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .pub-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0;
+        }
+
+        .pub-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: var(--code-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pub-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .pub-btn-paper::after {
+            content: '↗';
+            font-size: 0.75rem;
+        }
+
+        .pub-btn-abstract.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .pub-abstract {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease, padding 0.4s ease;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            background: var(--code-bg);
+            border-radius: 6px;
+            margin-top: 0;
+            padding: 0 1rem;
+        }
+
+        .pub-abstract.expanded {
+            max-height: 1000px;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .pub-abstract::before {
+            content: '$ cat abstract.txt';
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Video Clips */
+        .pub-videos {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease, padding 0.4s ease;
+            background: var(--code-bg);
+            border-radius: 6px;
+            margin-top: 0;
+            padding: 0 1rem;
+        }
+
+        .pub-videos.expanded {
+            max-height: 2000px;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .pub-videos::before {
+            content: '$ play videos/';
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .video-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .video-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .video-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .pub-btn-videos.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .edu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .edu-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            white-space: nowrap;
+            padding-top: 0.2rem;
+        }
+
+        .edu-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-school {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .edu-honors {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 100px;
+                padding-bottom: 3rem;
+            }
+
+            .exp-header {
+                flex-direction: column;
+            }
+
+            .edu-card {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
 </head>
-
 <body>
-
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li>
-                        <div id="profilepic">
-                            <img src="headshot.png" />
-                        </div>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="index.html">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="previous_work.html">Academic Work</a>
-                </li>
-                <li>
-                    <a href="open_source_projects.html">Open Source Projects</a>
-                </li>
-                <!-- <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
-            </ul>
+    <nav>
+        <div class="container">
+            <div class="logo">ofir</div>
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <ul class="nav-links">
+                    <li><a href="#about">about</a></li>
+                    <li><a href="#experience">experience</a></li>
+                    <li><a href="#publications">publications</a></li>
+                    <li><a href="#education">education</a></li>
+                    <li><a href="#contact">contact</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <span class="theme-toggle-icon" id="theme-icon">☀️</span>
+                    <span id="theme-label">light</span>
+                </button>
+            </div>
         </div>
-        <!-- /#sidebar-wrapper -->
+    </nav>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Ofir Weisse</h1>
-                        <h4> Contact: OWeisse (at) umich.edu</h4>
-                        <p>I finished my PhD at the University of Michigan, advised by prof. <a href="https://web.eecs.umich.edu/~barisk/">Baris Kasikci</a> and prof. <a href="https://web.eecs.umich.edu/~twenisch/">Thomas F. Wenisch</a>. I currently work for Google Cloud, kernel team, making the cloud faster and safer. My <a href="previous_work.html">publications</a> include <a href="MICRO2019_NDA.pdf"> NDA</a>, <a href="https://ForeshadowAttack.com"> Foreshadow (L1TF)</a>, <a href="ISCA17_Ofir_Weisse.pdf">HotCalls</a>, and <a href="https://spqr.eecs.umich.edu/walnut/"> WALNUT</a>.  I am also interested in operating systems, virtualization, and anything low-level.</p>
+    <main>
+        <section class="hero">
+            <div class="hero-prompt">$ whoami</div>
+            <h1>
+                <span class="accent">Ofir</span> Weisse<span class="cursor"></span>
+            </h1>
+            <p class="hero-tagline">
+                Systems engineer specializing in <code>kernel</code>, <code>virtualization</code>, and <code>low-level security</code>. Currently building cloud infrastructure at Google.
+            </p>
+            <div class="hero-links">
+                <a href="mailto:OWeisse@umich.edu" class="btn btn-primary">
+                    <span>Get in touch</span>
+                </a>
+                <a href="#publications" class="btn btn-secondary">
+                    <span>View research</span>
+                </a>
+            </div>
+        </section>
 
-<!-- 
-                        <h2>Ongoing Research</h2>
-                        <h4>Designing a processor architecture for fundamentally defeating speculative execution attacks.</h4> -->
-                        <p> <a href="previous_work.html">Academic Work</a></p>
-                        <p> <a href="open_source_projects.html">Open Source Projects</a></p>
-                        <h2>Previous Employers</h2>
-                        <h4>University Of Michigan, PhD. <a href="Dissertation_Ofir_Weisse.pdf">Dissertation</a> </h4>
-                        <h4>Google Cloud S&P - PhD intern, experimenting with booting Windows from Linux. See <a href="open_source_projects.html">Open Source Projects</a>. I demoed this PoC at <a href="https://osfc.io/talks/windows-boot">osfc.io</a>.</h4>
-                        <h4>VMWare Research - <a href="https://research.vmware.com/researchers/ofir-weisse">Research intern</a>, optimizing TLB shootdown algorithms in Linux kernel</h4>
-                        <h4>Microsoft Research - Research intern, developing framework for security analysis and interoperability testing for <a href="https://github.com/mitls/mitls-fstar">miTLS</a> (part of Microsoft's <a href="https://project-everest.github.io/">Everest</a> project)</h4>
-                        <h4>Intel - security researcher on SGX and BiosGuard technologies</h4>
-                        <h4>Tel-Aviv University - Researcher and TA</h4>
+        <section id="about">
+            <div class="section-header">// about</div>
+            <h2>About Me</h2>
 
-                        <h2>Education</h2>
-                        <h4>PhD in Computer Science, University of Michigan. Advised by <a href="https://web.eecs.umich.edu/~twenisch/">Thomas Wenisch</a> and <a href="https://web.eecs.umich.edu/~barisk/">Baris Kasikci</a>. <a href="Dissertation_Ofir_Weisse.pdf">Dissertation</a> 
-                        <br/>2015-2019</h4> 
-                        <h4>MSc in Computer Engineering, Tel-Aviv University, Israel.
-                        <br/>Graduated Cum Laude, 2010-2014</h4>
-                        <h4>BSc in Computer Engineering, Technion - Israel Institude of Technology, Israel.
-                        <br/>Graduated Cum Laude, 2003-2007</h4>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+            <div class="terminal-card">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">bio.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="about-text">
+                        <p>
+                            I'm a systems engineer at <strong>Google Cloud</strong> on the kernel team, where I focus on cloud infrastructure performance and security. My work sits at the intersection of operating systems, virtualization, and hardware security.
+                        </p>
+                        <p>
+                            I completed my PhD at the University of Michigan, advised by Thomas Wenisch and Baris Kasikci. My research has uncovered critical hardware vulnerabilities (including the Foreshadow/L1TF attack) and developed novel techniques for secure and efficient systems.
+                        </p>
+                    </div>
+                    <div class="skills-grid">
+                        <span class="skill-tag">Linux Kernel</span>
+                        <span class="skill-tag">Virtualization</span>
+                        <span class="skill-tag">SGX</span>
+                        <span class="skill-tag">Hardware Security</span>
+                        <span class="skill-tag">Performance</span>
+                        <span class="skill-tag">Cloud Infrastructure</span>
+                        <span class="skill-tag">Systems Research</span>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /#page-content-wrapper -->
+        </section>
 
-    </div>
-    <!-- /#wrapper -->
+        <section id="experience">
+            <div class="section-header">// experience</div>
+            <h2>Where I've Worked</h2>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Systems Engineer @ <span class="exp-company">Google Cloud</span></span>
+                    <span class="exp-date">Current</span>
+                </div>
+                <p class="exp-description">
+                    Working on the kernel team, focusing on cloud infrastructure performance and security.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">PhD Intern @ <span class="exp-company">Google Cloud</span></span>
+                    <span class="exp-date">PhD</span>
+                </div>
+                <p class="exp-description">
+                    Conducted Windows/Linux boot experiments. Presented research at osfc.io.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Research Intern @ <span class="exp-company">VMware Research</span></span>
+                    <span class="exp-date">PhD</span>
+                </div>
+                <p class="exp-description">
+                    Optimized TLB shootdown algorithms in the Linux kernel for improved virtualization performance.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Research Intern @ <span class="exp-company">Microsoft Research</span></span>
+                    <span class="exp-date">PhD</span>
+                </div>
+                <p class="exp-description">
+                    Developed security analysis framework for miTLS as part of the Everest project.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Security Researcher @ <span class="exp-company">Intel</span></span>
+                    <span class="exp-date">Pre-PhD</span>
+                </div>
+                <p class="exp-description">
+                    Focused on SGX and BiosGuard security research.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <span class="exp-title">Researcher & TA @ <span class="exp-company">Tel-Aviv University</span></span>
+                    <span class="exp-date">MSc</span>
+                </div>
+                <p class="exp-description">
+                    Conducted research and served as teaching assistant during graduate studies.
+                </p>
+            </div>
+        </section>
+
+        <section id="publications">
+            <div class="section-header">// publications</div>
+            <h2>Research & Papers</h2>
+
+            <div class="pub-grid">
+                <!-- Snap & Replay -->
+                <div class="pub-card">
+                    <div class="pub-venue">SoCC 2025</div>
+                    <h3 class="pub-title">Snap & Replay: A New Way to Analyze Uarch-Scale Performance Bottlenecks for ML Accelerators</h3>
+                    <p class="pub-description">Fine-grained methodology for analyzing ML models at machine-code level using hardware simulators. Optimizes TPU workloads, reducing token generation latency by up to 4.1%.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-snr')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/snr_final.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-snr">
+                        As models become larger, ML accelerators are a scarce resource whose performance must be continually optimized to improve efficiency. Existing performance analysis tools are coarse-grained, fail to capture model performance at the machine-code level, and often do not provide specific recommendations for optimizations. In addition, existing methodologies are hard to apply in Google's production environment, as they require hardware changes or recompilation. We present SnR, a fine-grained methodology for analyzing ML models at the machine-code level that provides actionable optimization suggestions. It requires no hardware changes and no recompilation.<br><br>Our core insight is to use a hardware-level simulator, an artifact of the hardware design process that we can repurpose for performance analysis. Traditionally, these simulators are confidential tools used to improve hardware designs given representative software workloads. However, as a hyperscaler practicing hardware/software co-design, we are uniquely positioned to use them in the opposite direction: to optimize software given fixed hardware architectures. SnR captures traces from production deployments running on accelerators and replays them in a modified microarchitecture simulator to gain low-level insights into the model's performance. We implement SnR for our in-house accelerator (TPU) and used it to analyze the performance of several of our production LLMs, revealing several previously unknown microarchitecture inefficiencies. Leveraging these insights, we optimize a common communication collective by up to 15% and reduce token generation latency by up to 4.1%.
+                    </div>
+                </div>
+
+                <!-- ghOSt -->
+                <div class="pub-card">
+                    <div class="pub-venue">SOSP 2021</div>
+                    <h3 class="pub-title">ghOSt: Fast & Flexible User-Space Delegation of Linux Scheduling</h3>
+                    <p class="pub-description">Infrastructure for delegating kernel scheduling decisions to userspace. Enables policy optimization without host reboots, deployed on Google Search and Snap.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-ghost')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/sosp21-ghost.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-ghost">
+                        We present ghOSt, our infrastructure for delegating kernel scheduling decisions to userspace code. ghOSt is designed to support the rapidly evolving needs of our data center workloads and platforms. Improving scheduling decisions can drastically improve the throughput, tail latency, scalability, and security of important workloads. However, kernel schedulers are difficult to implement, test, and deploy efficiently across a large fleet. Recent research suggests bespoke scheduling policies, within custom data plane operating systems, can provide compelling performance results in a data center setting. However, these gains have proved difficult to realize as it is impractical to deploy a custom OS image(s) at an application granularity, particularly in a multi-tenant environment, limiting the practical applications of these new techniques.<br><br>ghOSt provides general-purpose delegation of scheduling policies to userspace processes in a Linux environment. ghOSt provides state encapsulation, communication, and action mechanisms that allow complex expression of scheduling policies within a userspace agent, while assisting in synchronization. Programmers use any language to develop and optimize policies, which are modified without a host reboot. ghOSt supports a wide range of scheduling models, from per-CPU to centralized, run-to-completion to preemptive, and incurs low overheads for scheduling actions. We demonstrate ghOSt's performance on both academic and real-world workloads, including Google Snap and Google Search. We show that by using ghOSt instead of the kernel scheduler, we can quickly achieve comparable throughput and latency while enabling policy optimization, non-disruptive upgrades, and fault isolation for our data center workloads.
+                    </div>
+                </div>
+
+                <!-- NDA -->
+                <div class="pub-card">
+                    <div class="pub-venue">MICRO 2019</div>
+                    <h3 class="pub-title">NDA: Preventing Speculative Execution Attacks at Their Source</h3>
+                    <p class="pub-description">Hardware defense against Meltdown/Spectre attacks by restricting speculative data propagation. Closes 68-96% of the performance gap vs. in-order execution.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-nda')">+ Abstract</button>
+                        <button class="pub-btn pub-btn-videos" onclick="toggleVideos('videos-nda')">+ Videos</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/MICRO2019_NDA.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-nda">
+                        Speculative execution attacks like Meltdown and Spectre work by accessing secret data in wrong-path execution. Secrets are then transmitted and recovered by the attacker via a covert channel. Existing mitigations either require code modifications, address only specific exploit techniques, or block only the cache covert channel. Rather than battling exploit techniques and covert channels one by one, we seek to close off speculative execution attacks at their source.<br><br>Our key observation is that these attacks require a chain of dependent wrong-path instructions to access and transmit secret data. We propose NDA, a technique to restrict speculative data propagation. NDA breaks the wrong-path dependence chains required by all known attacks, while still allowing speculation and dynamic scheduling. We describe a design space of NDA variants that differ in the constraints they place on the dynamic scheduling and the classes of speculative execution attacks they prevent. NDA preserves much of the performance advantage of out-of-order execution: on SPEC CPU 2017, NDA variants close 68-96% of the performance gap between in-order and unconstrained (insecure) out-of-order execution.
+                    </div>
+                    <div class="pub-videos" id="videos-nda">
+                        <div class="video-item">
+                            <div class="video-title">Conference Presentation</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/sIfcnJUcZ6I" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Foreshadow-NG -->
+                <div class="pub-card">
+                    <div class="pub-venue">Technical Report 2018</div>
+                    <h3 class="pub-title">Foreshadow-NG (known as <a href="https://docs.kernel.org/admin-guide/hw-vuln/l1tf.html" target="_blank" rel="noopener">L1TF</a>): Breaking the Virtual Memory Abstraction with Transient Out-of-Order Execution</h3>
+                    <p class="pub-description">Extends Foreshadow beyond SGX to attack OS kernels, hypervisors, SMM, and VMs in cloud environments. CVE-2018-3620, CVE-2018-3646.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-foreshadow-ng')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://foreshadowattack.eu/foreshadow-NG.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-foreshadow-ng">
+                        While investigating the vulnerability that causes Foreshadow, which Intel refers to as "L1 Terminal Fault", Intel identified two related attacks, which we call Foreshadow-NG. These attacks can potentially be used to read any information residing in the L1 cache, including information belonging to the System Management Mode (SMM), the Operating System's Kernel, or Hypervisor.<br><br>Perhaps most devastating, Foreshadow-NG might also be used to read information stored in other virtual machines running on the same third-party cloud, presenting a significant risk to cloud infrastructure. Finally, in some cases, Foreshadow-NG might bypass previous mitigations against speculative execution attacks, including countermeasures for Meltdown and Spectre.
+                    </div>
+                </div>
+
+                <!-- Foreshadow -->
+                <div class="pub-card">
+                    <div class="pub-venue">USENIX Security 2018</div>
+                    <h3 class="pub-title">Foreshadow: Extracting the Keys to the Intel SGX Kingdom</h3>
+                    <p class="pub-description">Critical speculative execution vulnerability affecting Intel SGX. Extracts cryptographic keys and forges attestation responses. Affects millions of devices.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-foreshadow')">+ Abstract</button>
+                        <button class="pub-btn pub-btn-videos" onclick="toggleVideos('videos-foreshadow')">+ Videos</button>
+                        <a class="pub-btn pub-btn-paper" href="https://foreshadowattack.com/" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-foreshadow">
+                        Trusted execution environments, and particularly the Software Guard eXtensions (SGX) included in recent Intel x86 processors, gained significant traction in recent years. A long track of research papers, and increasingly also real-world industry applications, take advantage of the strong hardware-enforced confidentiality and integrity guarantees provided by Intel SGX. Ultimately, enclaved execution holds the compelling potential of securely offloading sensitive computations to untrusted remote platforms.<br><br>We present Foreshadow, a practical software-only microarchitectural attack that decisively dismantles the security objectives of current SGX implementations. Crucially, unlike previous SGX attacks, we do not make any assumptions on the victim enclave's code and do not necessarily require kernel-level access. At its core, Foreshadow abuses a speculative execution bug in modern Intel processors, on top of which we develop a novel exploitation methodology to reliably leak plaintext enclave secrets from the CPU cache. We demonstrate our attacks by extracting full cryptographic keys from Intel's vetted architectural enclaves, and validate their correctness by launching rogue production enclaves and forging arbitrary local and remote attestation responses. The extracted remote attestation keys affect millions of devices.
+                    </div>
+                    <div class="pub-videos" id="videos-foreshadow">
+                        <div class="video-item">
+                            <div class="video-title">USENIX Security 2018 Presentation</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ynB1inl4G3c?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="video-item">
+                            <div class="video-title">Talk at Duo Security in Ann Arbor</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/LVeWUq_mciM" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="video-item">
+                            <div class="video-title">Talk at UC Berkeley</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/EahQBMuhx5Y" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="video-item">
+                            <div class="video-title">Demo at USENIX Security</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/fEV6eA9o21o?start=730" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HotCalls -->
+                <div class="pub-card">
+                    <div class="pub-venue">ISCA 2017</div>
+                    <h3 class="pub-title">HotCalls: Turbocharging Enclave Transitions</h3>
+                    <p class="pub-description">Fast SGX interface framework providing 13-27x speedup over default enclave transitions. Boosts throughput by 2.6-3.7x for memcached, openVPN, and lighttpd.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-hotcalls')">+ Abstract</button>
+                        <button class="pub-btn pub-btn-videos" onclick="toggleVideos('videos-hotcalls')">+ Videos</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/ISCA17_Ofir_Weisse.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-hotcalls">
+                        Intel's SGX secure execution technology allows the running of computations on secret data using untrusted cloud servers. While recent work showed how to port applications and large scale computations to run under SGX, the performance implications of using the technology remains an open question. We present the first comprehensive quantitative study to evaluate the performance of SGX.<br><br>We show that straightforward use of SGX library primitives for calling functions add between 8,200 - 17,000 cycles overhead, compared to 150 cycles of a typical system call. We quantify the performance impact of these library calls and show that in applications with high system calls frequency, such as memcached, openVPN, and lighttpd, which all have high bandwidth network requirements, the performance degradation may be as high as 79%. We investigate the sources of this performance degradation by leveraging a new set of micro-benchmarks for SGX-specific operations such as entry-calls and out-calls, and encrypted memory I/O accesses. We leverage the insights we gain from these analyses to design a new SGX interface framework, HotCalls: HotCalls provide a 13-27x speedup over the default interface. It can easily be integrated into existing code, making it a practical solution. Compared to a baseline SGX implementation of memcached, openVPN, and lighttpd - we show that using the new interface boosts the throughput by 2.6-3.7x, and reduce application response time by 62-74%.
+                    </div>
+                    <div class="pub-videos" id="videos-hotcalls">
+                        <div class="video-item">
+                            <div class="video-title">Linux Kernel Meetup Talk (Hebrew)</div>
+                            <div class="video-wrapper">
+                                <iframe src="https://www.youtube-nocookie.com/embed/I3TCctdnOEc" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WALNUT -->
+                <div class="pub-card">
+                    <div class="pub-venue">European Symposium on Security and Privacy 2017</div>
+                    <h3 class="pub-title">WALNUT: Waging Doubt on the Integrity of MEMS Accelerometers</h3>
+                    <p class="pub-description">Acoustic injection attacks on MEMS accelerometers. 75% of tested sensors vulnerable to output biasing, 65% to total output control. Includes software defenses.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-walnut')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://spqr.eecs.umich.edu/walnut/" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-walnut">
+                        Embedded systems depend on sensors to make automated decisions. Resonant acoustic injection attacks are already known to cause malfunctions by disabling MEMS-based gyroscopes. However, an open question remains on how to move beyond denial of service attacks to achieve full adversarial control of sensor outputs. Our work investigates how analog acoustic injection attacks can damage the digital integrity of a popular type of sensor in consumer devices: the capacitive MEMS accelerometer.<br><br>Spoofing such sensors with intentional acoustic interference enables an out-of-spec pathway for attackers to deliver chosen digital values to microprocessors and embedded systems that blindly trust the unvalidated integrity of sensor outputs. Our contributions include (1) modeling the physics of malicious acoustic interference on MEMS accelerometers, (2) discovering the circuit-level design flaws that cause the vulnerabilities by measuring acoustic injection attacks on MEMS accelerometers as well as systems that depend on the sensors, and (3) two software-only defenses that mitigate many of the risks to the integrity of MEMS accelerometer outputs.<br><br>We characterize two classes of acoustic injection attacks: output biasing and output control. We test these attacks against 20 models of capacitive MEMS accelerometers representing the majority of the consumer market. Our experiments find that 75% are vulnerable to output biasing, and 65% are vulnerable to total output control. To illustrate end-to-end implications, we show how to inject fake steps into a Fitbit with a $5 speaker. In our self-stimulating attack, we play a malicious music file from a smartphone's speaker to control the on-board MEMS accelerometer trusted by a local app to pilot a toy RC car.
+                    </div>
+                </div>
+
+                <!-- CHES 2014 -->
+                <div class="pub-card">
+                    <div class="pub-venue">CHES 2014</div>
+                    <h3 class="pub-title">A New Framework for Constraint-Based Probabilistic Template Side Channel Attacks</h3>
+                    <p class="pub-description">Byte-oriented constraint solver for side-channel cryptanalysis. Extracts secret keys from 1-2 power traces in under 9 seconds with 79%+ success rate.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-ches2014')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/CHES2014_oww.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-ches2014">
+                        The use of constraint solvers, such as SAT- or PseudoBoolean-solvers, allows the extraction of the secret key from one or two side-channel traces. However, to use such a solver the cipher must be represented at bit-level. For byte-oriented ciphers this produces very large and unwieldy instances, leading to unpredictable, and often very long, run times.<br><br>In this paper we describe a specialized byte-oriented constraint solver for side channel cryptanalysis. The user only needs to supply code snippets for the native operations of the cipher, arranged in a flow graph that models the dependence between the side channel leaks. Our framework uses a soft decision mechanism which overcomes realistic measurement noise and decoder classification errors, through a novel method for reconciling multiple probability distributions. On the DPA v4 contest dataset our framework is able to extract the correct key from one or two power traces in under 9 seconds with a success rate of over 79%.
+                    </div>
+                </div>
+
+                <!-- HASP 2013 -->
+                <div class="pub-card">
+                    <div class="pub-venue">HASP 2013</div>
+                    <h3 class="pub-title">Practical Template-Algebraic Side Channel Attacks with Extremely Low Data Complexity</h3>
+                    <p class="pub-description">First practical template-algebraic attack on public dataset. Recovers encryption keys with only 200 offline traces and a single online trace.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-hasp2013')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/OrenWeisseWool-TemplateAlgebraic-HASP2013.pdf" target="_blank" rel="noopener">Paper</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-hasp2013">
+                        Template-based Tolerant Algebraic Side Channel Attacks (Template-TASCA) were suggested as a way of reducing the high data complexity of template attacks by coupling them with algebraic side-channel attacks. In contrast to the maximum-likelihood method used in a standard template attack, the template-algebraic attack method uses a constraint solver to find the optimal state correlated to the measured side-channel leakage.<br><br>In this work we present the first application of the template-algebraic key recovery attack to a publicly available data set (IAIK WS2). We show how our attack can successfully recover the encryption key even when the attacker has extremely limited access to the device under test – only 200 traces in the offline phase and as little as a single trace in the online phase.
+                    </div>
+                </div>
+
+                <!-- MSc Thesis -->
+                <div class="pub-card">
+                    <div class="pub-venue">MSc Thesis 2014</div>
+                    <h3 class="pub-title">New Methods for Side Channel Cryptanalysis</h3>
+                    <p class="pub-description">Master's thesis combining template attacks with algebraic side-channel methods. Introduces novel constraint solver and probability reconciliation techniques.</p>
+                    <div class="pub-buttons">
+                        <button class="pub-btn pub-btn-abstract" onclick="toggleAbstract('abstract-msc')">+ Abstract</button>
+                        <a class="pub-btn pub-btn-paper" href="https://www.ofirweisse.com/ofir_weisse_msc_thesis.pdf" target="_blank" rel="noopener">Thesis</a>
+                    </div>
+                    <div class="pub-abstract" id="abstract-msc">
+                        Template-based Tolerant Algebraic Side Channel Attacks (Template-TASCA) were suggested by Wool et al. in 2012 as a way of reducing the high data complexity of template attacks by coupling them with algebraic side-channel attacks. In contrast to the maximum-likelihood method used in a standard template attack, the template-algebraic attack method uses a constraint solver to find the optimal state correlated to the measured side-channel leakage.<br><br>In this work we present a practical application of the template-algebraic key recovery attack to a publicly available data set (IAIK WS2). We show how our attack can successfully recover the encryption key even when the attacker has extremely limited access to the device under test – only 200 traces in the offline phase and as little as a single trace in the online phase. However, to use such solvers the cipher must be represented at bit-level. For byte-oriented ciphers this produces very large and unwieldy instances, leading to unpredictable, and often very long, run times.<br><br>In this work we describe a specialized byte-oriented constraint solver for side channel cryptanalysis. The user only needs to supply code snippets for the native operations of the cipher, arranged in a flow graph that models the dependence between the side channel leaks. Our framework uses a soft decision mechanism which overcomes realistic measurement noise and decoder classification errors, through a novel method for reconciling multiple probability distributions. On the DPA v4 contest dataset our framework is able to extract the correct key from one or two power traces in under 9 seconds with a success rate of over 79%.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="section-header">// education</div>
+            <h2>Academic Background</h2>
+
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <span class="edu-year">2015-2019</span>
+                    <div class="edu-info">
+                        <h3>PhD in Computer Science</h3>
+                        <p class="edu-school">University of Michigan</p>
+                        <p class="edu-honors">Advised by Thomas Wenisch & Baris Kasikci</p>
+                    </div>
+                </div>
+
+                <div class="edu-card">
+                    <span class="edu-year">2010-2014</span>
+                    <div class="edu-info">
+                        <h3>MSc in Computer Engineering</h3>
+                        <p class="edu-school">Tel-Aviv University</p>
+                        <p class="edu-honors">Graduated Cum Laude</p>
+                    </div>
+                </div>
+
+                <div class="edu-card">
+                    <span class="edu-year">2003-2007</span>
+                    <div class="edu-info">
+                        <h3>BSc in Computer Engineering</h3>
+                        <p class="edu-school">Technion, Israel Institute of Technology</p>
+                        <p class="edu-honors">Graduated Cum Laude</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-header">// contact</div>
+            <h2>Get In Touch</h2>
+
+            <div class="contact-content">
+                <p>
+                    Interested in systems research, security, or just want to chat about low-level engineering? Feel free to reach out.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:OWeisse@umich.edu" class="contact-link">
+                        <span>OWeisse@umich.edu</span>
+                    </a>
+                    <a href="https://github.com/oweisse" class="contact-link" target="_blank" rel="noopener">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/ofirweisse" class="contact-link" target="_blank" rel="noopener">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=YOUR_ID" class="contact-link" target="_blank" rel="noopener">
+                        <span>Google Scholar</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>$ echo "Built with <span style="color: var(--accent);">&lt;3</span> and caffeine" _</p>
+    </footer>
 
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        // Abstract toggle
+        function toggleAbstract(id) {
+            const abstract = document.getElementById(id);
+            const btn = document.querySelector(`[onclick="toggleAbstract('${id}')"]`);
 
-  ga('create', 'UA-55464074-1', 'auto');
-  ga('send', 'pageview');
+            abstract.classList.toggle('expanded');
+            btn.classList.toggle('active');
 
-</script>
+            if (btn.classList.contains('active')) {
+                btn.textContent = '− Abstract';
+            } else {
+                btn.textContent = '+ Abstract';
+            }
+        }
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+        // Video toggle
+        function toggleVideos(id) {
+            const videos = document.getElementById(id);
+            const btn = document.querySelector(`[onclick="toggleVideos('${id}')"]`);
 
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+            videos.classList.toggle('expanded');
+            btn.classList.toggle('active');
+
+            if (btn.classList.contains('active')) {
+                btn.textContent = '− Videos';
+            } else {
+                btn.textContent = '+ Videos';
+            }
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const label = document.getElementById('theme-label');
+
+            if (html.getAttribute('data-theme') === 'light') {
+                html.removeAttribute('data-theme');
+                icon.textContent = '☀️';
+                label.textContent = 'light';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+                label.textContent = 'dark';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme on page load
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = document.getElementById('theme-icon');
+            const label = document.getElementById('theme-label');
+
+            if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+                label.textContent = 'dark';
+            }
+        })();
     </script>
-
 </body>
-
 </html>
